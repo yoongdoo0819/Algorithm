@@ -1,4 +1,4 @@
-# 괄호 변환
+# 괄호 변환 
 def balanced_index(p):
     count = 0
     for i in range(len(p)):
