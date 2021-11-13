@@ -1,3 +1,5 @@
+# 경쟁적 전염
+
 from collections import deque
 
 n, m = map(int, input().split())
