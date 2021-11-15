@@ -13,6 +13,7 @@ for data in combinations(datas, 2):
     
 print(cnt)
 """
+# book answer
 array = [0] * 11
 for x in datas:
     array[x] += 1
