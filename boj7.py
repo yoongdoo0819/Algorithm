@@ -43,7 +43,3 @@ def bfs(q):
     return cnt-1
 
 print(bfs(q))
-
-
-    
-    
