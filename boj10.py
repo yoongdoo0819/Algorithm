@@ -1,4 +1,4 @@
-# 연구소 (BOJ 16234)
+# 연구소 (BOJ 14502)
 
 from collections import deque
 from copy import deepcopy
