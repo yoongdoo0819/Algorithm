@@ -55,7 +55,6 @@ while True:
         for j in range(n):
             if visited[i][j] == False:
                 bfs(i, j)
-                
                 migration_check += 1
     
     if migration_check == n*n:
