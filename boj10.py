@@ -12,7 +12,7 @@ for i in range(n):
     for j in range(m):
         if maps[i][j] == 2:
             q.append((i, j))
-"""
+
 for map in maps:
     print(map)
     
@@ -23,7 +23,7 @@ for i in range(len(maps)):
     
 for element in q:
     print(element)
-"""
+
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
