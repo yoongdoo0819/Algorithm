@@ -1,4 +1,4 @@
-# 연구소 (BOJ 16234)
+# 인구 이동 (BOJ 16234)
 
 from collections import deque
 
