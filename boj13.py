@@ -1,32 +1,40 @@
-# 숨바꼭질 3 (못품)
+# 숨바꼭질3 
 
-import sys
-sys.setrecursionlimit(10**6)
+from collections import deque
 
 n, k = map(int, input().split())
-min_val = 10000000
-def dfs(n, count):
+MAX = 100000
+visited = [-1] * (MAX+1)
 
-    global min_val
-    global idx
+def bfs(start):
+    q = deque()
+    q.append(start)
+    visited[start] = 0
     
-    if n < 0 or n > 100000:
-        return 
-    
-    elif n > k:
-        dfs(n-1, count+1)
-        
-    elif n == k:
-        min_val = min(min_val, count)
-        
-    elif n < k:
-        dfs(n+1, count+1)
-        dfs(n*2, count)
-        """
-        n이 k보다 작을 때도 dfs를 돌려야 최솟값을 찾을 수 있는데,
-        +와 -가 호출되면 n의 값이 변동이 없으므로 재귀를 계속 반복하는 듯 보임.
-        dfs(n-1, count+1) 
-        """
-        
-dfs(n, 0)
-print(">>", min_val)
+    while q:
+        pos = q.popleft()
+        if pos == k:
+            print(visited[pos])
+            return
+            
+        for next_pos in [pos*2, pos+1, pos-1]:
+            if 0 <= next_pos <= MAX and visited[next_pos] == -1:
+                if pos*2 == next_pos :
+                    visited[next_pos] = visited[pos]
+                    """
+                    *2에 해당하는 값을 방문할 때는 +1을 안 해주므로,
+                    +나 -보다 최우선으로 방문해야 k가 되었을 때 최솟값이 됨.
+                    따라서 append가 아닌 appendleft를 통해 *2인 경우에는 
+                    +나 -보다 가장 먼저 queue에서 뽑힐 수 있도록 하는 것이 중요
+                    """
+                    q.appendleft(next_pos) 
+                    
+                elif pos+1 == next_pos :
+                    visited[next_pos] = visited[pos] + 1
+                    q.append(next_pos)
+                
+                elif pos-1 == next_pos :
+                    visited[next_pos] = visited[pos] + 1
+                    q.append(next_pos)
+                    
+bfs(n)
