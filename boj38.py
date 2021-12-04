@@ -15,8 +15,10 @@ def bfs(start):
     q = deque()
     q.append(start)
     """
-    21 line에서 visited = [False] * (n+1), 
-    29 line에서 if visited[dst] == False: 로 수정하면 결과는 틀림. 왜?
+    23 line에서 visited = [False] * (n+1), 
+    31 line에서 if visited[dst] == False: 로 수정하면 결과는 틀림. 왜?
+    visited[start] = 0으로 초기화하기 때문인듯. if 0 == False:는 True를 반환하기 때문에, start에 재방문될 수 있음
+    그러나 visited = [-1] * (n+1)로 초기화하면 visited[start] = 0일 때, if 0 == -1: 코드는 False를 반환하므로 start 노드에 재방문하지 않음.
     """
     visited = [-1] * (n+1) 
     visited[start] = 0
