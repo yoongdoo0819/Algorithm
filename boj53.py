@@ -1,6 +1,6 @@
 # ZOAC (BOJ 16719)
 
-string = input() # list(input())
+string = input() 
 result = [''] * len(string)
 
 def print_str(str_arr, start):
