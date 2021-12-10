@@ -1,4 +1,4 @@
-# 폴더 정리 (small) (BOJ 22860)
+# 폴더 정리 (small) (BOJ 22860) (못품)
 
 import sys
 sys.setrecursionlimit(10**6)
