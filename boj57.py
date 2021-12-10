@@ -1,4 +1,4 @@
-# 트리 순회 (BOJ 22856) (못품)
+# 트리 순회 (BOJ 22856) 
 
 import sys
 sys.setrecursionlimit(10**6)
@@ -32,19 +32,18 @@ visited = [False] * (n+1)
 cnt = 0
 def dfs(start):
     global cnt
-    
     visited[start] = True
-    if start == last_node:
-        print(cnt)
-        exit()
-        
+    
     for next in graph[start]:
         if next != -1 and not visited[next]:
             cnt += 1
             dfs(next)
             cnt += 1
     
+    if start == last_node:
+        print(cnt)
+        exit()
 
 inorder(1)
-print(last_node)
+#print(last_node)
 dfs(1)
