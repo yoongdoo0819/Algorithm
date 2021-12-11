@@ -46,11 +46,11 @@ def solution(tickets):
     test_map = {}
     
     """
-    아래 tickets_list와 visited 초기화 시, tickets_list = {}로 초기화 이후 dfs를 구동하면 KeyError 발생 (visited 변수는 visited = {}로 초기화해도 KeyError 발생 안함).
+    아래 tickets_list와 visited 초기화 시, tickets_list = {}로 초기화 이후 dfs를 구동하면 (104 line에서 key가 존재하는지 검사 없이 105 line을 바로 수행하면) KeyError 발생 (visited 변수는 visited = {}로 초기화해도 KeyError 발생 안함).
     그러나 tikcets_list = defaultdict(list)로 초기화하면 Error 발생하지 않고 통과.
     
     그러나, dfs를 구동하면서 기존에 존재하지 않는 key로 tickets_list를 접근하지 않을텐데,,, 
-    ***왜, 어느 부분에서 KeyError가 발생하는지 모름***
+    ***왜 KeyError가 발생하는지 모름***
     """
     tickets_list = defaultdict(list)
     visited = defaultdict(list)
@@ -101,25 +101,28 @@ def dfs(src, tickets_list, n, visited):
         check = True
         return
     
-    for dst in tickets_list[src]:
-        tikcet_num = visited[src][dst]
-        for _ in range(0, tikcet_num):
+    if tickets_list.get(src) != None: # 해당 검사 없이 105 line에서 key = src를 바로 접근하면 KeyError 발생 (테스트 케이스는 통과, 그러나 히든 테케에서 런타임에러)
+        for dst in tickets_list[src]:
+            tikcet_num = visited[src][dst]
+            for _ in range(0, tikcet_num):
 
-            result.append(dst)
-            visited[src][dst] -= 1
-            dfs(dst, tickets_list, n, visited)
-            visited[src][dst] += 1
-            result.pop()
+                result.append(dst)
+                visited[src][dst] -= 1
+                dfs(dst, tickets_list, n, visited)
+                visited[src][dst] += 1
+                result.pop()
             
 def solution(tickets):
     
-    tickets_list = defaultdict(list)
+    tickets_list = {} # defaultdict(list)로 초기화하지 않고 {}로 초기화.
     visited = {} # defaultdict(list)
 
     for src, dst in tickets:
         if not src in tickets_list:
             tickets_list[src] = []
-        tickets_list[src].append(dst)
+            tickets_list[src].append(dst)
+        else:
+            tickets_list[src].append(dst)
             
         if not src in visited:
             visited[src] = {}
@@ -130,7 +133,8 @@ def solution(tickets):
             visited[src][dst] += 1
         
     for key in tickets_list.keys():
-        tickets_list[key].sort()
+        if tickets_list.get(key) != None:
+            tickets_list[key].sort()
     
     result.append('ICN')
     dfs('ICN', tickets_list, len(tickets), visited)    
