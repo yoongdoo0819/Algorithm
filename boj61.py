@@ -22,17 +22,17 @@ s = []
 
 def dfs(i):
     
-    #print("curr", s, i)
+    print("curr", s, i)
     if len(s) == m:
         print(' '.join(map(str, s)))
-        #print("exit", i)
+        print("exit", i)
         return
     else:
         for val in range(i, n+1):
             if not val in s:
-                #print("add", val, " before ", val+1)
+                print("add", val, " before ", val+1)
                 s.append(val)
                 dfs(val+1)
                 s.pop()
-                #print("pop", val, " after", val+1)
+                print("pop", val, " after", val+1)
 dfs(1)
