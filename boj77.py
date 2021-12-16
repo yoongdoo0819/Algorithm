@@ -24,7 +24,7 @@ def dfs(cnt, graph, sum_val):
     
     """
     deepcopy(graph)는 성공
-    그러나 graph.copy()는 실패, 왜 ?
+    그러나 graph.copy()는 실패
     """
     if graph[x][y] > 0:
         if x-1 >= 0 and y-1 >= 0 and graph[x-1][y] > 0 and graph[x][y-1] > 0:
