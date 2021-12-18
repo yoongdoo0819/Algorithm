@@ -69,3 +69,83 @@ def bfs(k, x, y):
     return -1
 
 print(bfs(0, 0, 0))
+
+"""
+
+위 코드처럼 while 문을 반복하면서 q에서 가장 먼저 k에 대해 n-1, m-1 좌표를 도달했을 때 결과를 출력
+
+아래 코드는 q가 빌때까지 while문을 모두 반복한 뒤, 결과를 출력
+
+from collections import deque
+from copy import deepcopy
+
+n, m = map(int, input().split())
+graph = [ [] for _ in range(2) ]
+
+for i in range(n):
+    graph[0].append(list(map(int, input())))
+    for j in range(m):
+        if graph[0][i][j] == 1:
+            graph[0][i][j] = 'X'
+            
+graph[1] = deepcopy(graph[0])
+
+r_k, r_x, r_y = 0, 0, 0
+check = False
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+def bfs(k, x, y):
+    q = deque()
+    q.append((k, x, y))
+    graph[k][x][y] = 1
+    graph[k+1][x][y] = 1
+    global r_k, r_x, r_y, check
+    while q:
+        k, x, y = q.popleft()
+        
+        if k < 1:
+            for i in range(4):
+                nx = x + dx[i]
+                ny = y + dy[i]
+                
+                if nx < 0 or nx >= n or ny < 0 or ny >= m:
+                    continue
+                if graph[k][nx][ny] == 0:
+                    graph[k][nx][ny] = graph[k][x][y] + 1
+                    q.append((k, nx, ny))
+            
+            for i in range(4):
+                nx = x + dx[i]
+                ny = y + dy[i]
+                
+                if nx < 0 or nx >= n or ny < 0 or ny >= m:
+                    continue
+                if graph[k][nx][ny] == 0 or graph[k][nx][ny] == 'X':
+                    graph[k+1][nx][ny] = graph[k][x][y] + 1
+                    q.append((k+1, nx, ny))
+                    
+        if k == 1:
+            for i in range(4):
+                nx = x + dx[i]
+                ny = y + dy[i]
+                
+                if nx < 0 or nx >= n or ny < 0 or ny >= m:
+                    continue
+                if graph[k][nx][ny] == 0:
+                    graph[k][nx][ny] = graph[k][x][y] + 1
+                    q.append((k, nx, ny))
+    return -1    
+            
+bfs(0, 0, 0)
+if graph[0][n-1][m-1] == 0 and graph[1][n-1][m-1] == 0:
+    print(-1)
+else:
+    if graph[0][n-1][m-1] == 0:
+        print(graph[1][n-1][m-1])
+    elif graph[1][n-1][m-1] == 0:   # 이 조건이 없이 151 line 조건만 존재한다면 실패함.
+        print(graph[0][n-1][m-1])   # k가 0인데 n-1, m-1에 도달할 수 있으나, k가 1인데 n-1, m-1에 도달할 수 없는 경우가 존재하는듯. 그러한 예시는??
+    elif graph[0][n-1][m-1] > 0 and graph[1][n-1][m-1] > 0:
+        print(min(graph[0][n-1][m-1], graph[1][n-1][m-1]))
+
+"""
