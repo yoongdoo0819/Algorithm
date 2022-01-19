@@ -1,4 +1,4 @@
-# 에너지 드링크 (20115)
+# 에너지 드링크 (BOJ 20115)
 
 n = int(input())
 energy_drink = list(map(int, input().split()))
