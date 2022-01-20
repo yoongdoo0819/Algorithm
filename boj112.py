@@ -19,7 +19,6 @@ for i in arr[1:]:
 print(s)
 
 """
-#아래 코드는 예제 케이스는 통과하는데, 제출 시 틀림. 왜 ?
 
 for i in range(len(s)):
     
@@ -31,16 +30,6 @@ for i in range(len(s)):
         temp_s += s[i]
 expr_s += str(int(temp_s))
 
-arr = expr_s.split('-') 
-ans = 0 
-for i in arr[0].split('+'): 
-    ans += i
-for i in arr[1:]: 
-    for j in i.split('+'): 
-        ans -= j
-print(s)
-
-"""
 minus_check = False
 for i in range(len(expr_s)):
     
@@ -48,15 +37,13 @@ for i in range(len(expr_s)):
         copy_s += expr_s[i] + '('
         minus_check = True
     elif expr_s[i] == '-' and minus_check == True:
-        copy_s += ')' + expr_s[i]
-        minus_check = False
+        copy_s += ')' + expr_s[i] + '('
     else:
         copy_s += expr_s[i]
 if minus_check == True:
     copy_s += ')'
     
-
-print(s)
-print(expr_s)
-print(copy_s, eval(copy_s))
-"""
+#print(s)
+#print(expr_s)
+#print(copy_s)
+print(eval(copy_s))
