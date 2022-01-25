@@ -44,3 +44,27 @@ def find_biggest(new_str):
 
 find_biggest("")
 print(answer)
+
+"""
+아래 코드와 동일
+
+N, K = map(int, input().split())
+num_arr = list(input().split())
+
+max_val = 0
+def dfs(sum):
+    global max_val
+    
+    if len(sum) == len(str(N))+1:    
+        return
+    
+    if sum != '' and int(sum) <= N:    
+        max_val = max(max_val, int(sum))
+    
+    for num in num_arr:
+        dfs(sum + num)
+        
+dfs('')
+print(max_val)
+
+"""
