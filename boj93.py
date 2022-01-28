@@ -27,3 +27,40 @@ for member in members:
     
 
 print(min_diff)
+
+"""
+아래 코드는 combination을 사용하여 해결
+
+from itertools import combinations
+
+N = int(input())
+teams = []
+ans = 1e9
+
+for _ in range(N):
+    teams.append(list(map(int, input().split())))
+    
+teams_set = set()
+for i in range(N):
+    teams_set.add(i)
+
+for team in combinations([i for i in range(N)], N//2):
+    start_team_ability = 0
+    for i in team:
+        for j in team:
+            start_team_ability += teams[i][j]
+        
+    link_team_ability = 0
+    link_team = [i for i in range(N)]
+    for idx in team:
+        link_team.remove(idx)
+    
+    for i in link_team:
+        for j in link_team:
+            link_team_ability += teams[i][j]
+        
+    ans = min(ans, abs(start_team_ability-link_team_ability))
+    
+print(ans)
+
+"""
