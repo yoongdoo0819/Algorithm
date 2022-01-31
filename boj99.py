@@ -27,19 +27,21 @@ def bfs(initial_x, initial_y, initial_h, initial_d):
     visited[initial_x][initial_y] = h
     
     while q:
-        
-        dead_check = True
-        for x, y, curr_h, curr_d in q:
-            if curr_h > 0:
-                dead_check = False
-                break
-                
-        if dead_check == True:
-            return False
 
         x, y, curr_h, curr_d = q.popleft()
         if curr_h <= 0:
             continue
+        
+        """
+        아래 if문에 의해, 도착지점에 도달했음을 확인한 경우에
+        return하지 않도록 코드를 짠 이유는,
+        도착 지점에 도달하기 전에 체력이 1이고 도달하여 queue에 삽입할 때 체력이 0이 된다면, 
+        추후 queue에서 꺼낼 때 32 line에서 체력이 0 이하로 꺼내지므로 다음 42 line if문 코드를 실행할 수가 없게 됨
+        즉, 42 line 대신 53 line에서 도착 지점을 판별한다면 정답이 될 수 있는 이유는, 53 line을 실행하는 시점은 체력이 0보다 큰 경우이며 다음 지점이 도착 지점인 경우라면 도달할 수 있다는 것이므로 정답 처리가 됨. 
+        
+        if x == e_x and y == e_y:
+            return True
+        """
         
         for i in range(4):
             nx = x + dx[i]
