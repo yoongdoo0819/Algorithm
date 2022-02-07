@@ -1,5 +1,17 @@
-# 바이러스
+# 바이러스 (BOJ 2606)
 
+"""
+DFS와 BFS 풀이 모두에서
+maps[x].append(y)로 방향 그래프를 연결하지만,
+maps[y].append(x)도 추가하여 무방향 그래프를 연결해야만 정답이 되는 이유?
+단방향 그래프에서는 왜 정답이 못 되는지 ?
+
+"""
+
+"""
+아래는 DFS 풀이
+
+"""
 n = int(input())
 nets = int(input())
 maps = [ [] for _ in range(n+1)]
@@ -21,3 +33,40 @@ def dfs(start, answer):
     return answer
     
 print( dfs(1, 0) )
+
+"""
+아래는 BFS로 풀이
+
+from collections import deque
+
+N = int(input())
+number_of_pairs = int(input())
+
+graphs = [ [] for _ in range(101) ]
+
+for _ in range(number_of_pairs):
+    src, dst = map(int, input().split())
+    graphs[src].append(dst)
+    graphs[dst].append(src)
+visited = [False] * 101
+
+def bfs(start, cnt):
+    q = deque()
+    q.append(start)
+    visited[start] = True
+
+    while q:
+        src = q.popleft()
+        
+        for dst in graphs[src]:
+            if not visited[dst]:
+                visited[dst] = True
+                q.append(dst)
+                cnt += 1
+
+    return cnt
+
+
+print(bfs(1, 0))
+
+"""
