@@ -1,4 +1,40 @@
 # 효율적인 해킹
+
+"""
+아래 DFS로는 못 푸는지 ?
+시간/메모리 제한에서 걸림
+
+import sys 
+sys.setrecursionlimit(10**6)
+
+N, M = map(int, input().split())
+graphs = [ [] for _ in range(N+1) ]
+
+for _ in range(M):
+    src, dst = map(int, input().split())
+    graphs[dst].append(src)
+    
+ans = [ 0 for _ in range(N+1) ]
+def dfs(src, cnt):
+    
+    for dst in graphs[src]:
+        if not visited[dst]:
+            visited[dst] = True
+            cnt = dfs(dst, cnt+1)
+            
+    return cnt
+
+for i in range(1, N+1):
+    visited = [False] * (N+1)
+    ans[i] = dfs(i, 0)
+    
+max_val = max(ans)
+for i in range(1, N+1):
+    if max_val == ans[i]:
+        print(i, end=' ')
+            
+
+"""
 from collections import deque
 
 n, m = map(int, input().split())
