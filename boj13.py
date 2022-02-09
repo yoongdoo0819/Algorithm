@@ -1,4 +1,4 @@
-# 숨바꼭질3 
+# 숨바꼭질3 (BOJ 13549)
 
 from collections import deque
 
@@ -38,3 +38,59 @@ def bfs(start):
                     q.append(next_pos)
                     
 bfs(n)
+
+"""
+아래 BFS는 정답이 안 됨.
+if x-1 < 0 or x+1 < 0 or x*2 < 0 or x-1 > 100000 or x+1 > 100000 or x*2 > 100000: continue와 같은 코드는
+만약 x가 60000이라면 x+1 > 100000 조건을 만족하지 못함. 그러나, x*2 > 100000 조건을 만족하기 때문에 continue를 실행하게 됨.
+즉 *, +, - 연산을 다음과 같이 개별적으로 수행해야만 정답이 됨.
+        # if 0 <= x*2 <= 100000 and not visited[x*2]:    
+        #     visited[x*2] = True
+        #     q.appendleft((x*2, time))
+                
+        # if 0 <= x+1 <= 100000 and not visited[x+1]:
+        #     visited[x+1] = True
+        #     q.append((x+1, time+1))
+        
+        # if 0 <= x-1 <= 100000 and not visited[x-1]:
+        #     visited[x-1] = True
+        #     q.append((x-1, time+1))
+         
+            
+from collections import deque
+
+N, K = map(int, input().split())
+
+visited = [False] * 100001
+def bfs(start, time):
+    
+    q = deque()
+    q.append((start, time))
+    visited[start] = True
+    
+    while q:
+        x, time = q.popleft()
+        
+        if x == K:
+            return time
+        
+        if x-1 < 0 or x+1 < 0 or x*2 < 0 or x-1 > 100000 or x+1 > 100000 or x*2 > 100000:
+            continue
+        
+        if not visited[x*2]:
+            visited[x*2] = True
+            q.appendleft((x*2, time))
+            
+        if not visited[x+1]:
+            visited[x+1] = True
+            q.append((x+1, time+1))
+        
+        if not visited[x-1]:
+            visited[x-1] = True
+            q.append((x-1, time+1))
+            
+            
+time = bfs(N, 0)
+print(time)
+
+"""
