@@ -127,7 +127,7 @@ def dfs(curr, start, visited):
     if not next in visited:
         visited.add(next)
         dfs(next, start, visited)
-        visited.remove(next)
+        #visited.remove(next)
     else:
         if next == start:
             visited_set = visited_set | visited
