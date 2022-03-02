@@ -17,3 +17,29 @@ def dfs():
             result.pop()
             
 dfs()
+
+"""
+직접 짠 코드
+
+
+N, M = map(int, input().split())
+datas = list(map(int, input().split()))
+datas.sort()
+
+def dfs(res, cnt):
+    
+    if cnt == M:
+        for i in res:
+            print(i, end=" ")
+        print("")
+        return
+    
+    for i in datas:
+        if not i in res:
+            res.append(i)
+            dfs(res, cnt + 1)
+            res.pop(-1)
+
+dfs([], 0)
+
+"""
