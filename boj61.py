@@ -36,3 +36,32 @@ def dfs(i):
                 s.pop()
                 print("pop", val, " after", val+1)
 dfs(1)
+
+"""
+직접 짠 코드
+
+N, M = map(int, input().split())
+
+def dfs(start, res, cnt):
+    
+    if cnt == M:
+        for i in res:
+            print(i, end=" ")
+        print("")
+        return
+    
+    for i in range(start, N+1):
+        if not i in res:
+            res.append(i)
+            dfs(i, res, cnt + 1)
+            res.pop(-1)
+
+dfs(1, [], 0)
+
+# res = []        
+# for i in range(1, N+1):
+#     res.append(i)
+#     dfs(i, res, 1)
+#     res.pop(-1)
+
+"""
