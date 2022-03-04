@@ -36,6 +36,39 @@ dfs(0)
 print(answer)
 
 """
+위 코드 중 31~33 line을 아래 코드처럼 수정 가능
+
+N, M = map(int, input().split())
+graphs = []
+
+for _ in range(N):
+    graphs.append(list(map(int, input().split())))
+    
+sum = 0
+def dfs(idx, depth):
+    global sum
+    
+    if depth == 3:
+        temp_sum = 0
+        for i in range(N):
+            max_val = 0
+            for j in idx:
+                max_val = max(max_val, graphs[i][j])
+            temp_sum += max_val
+        
+        sum = max(sum, temp_sum)
+        return
+    
+    for i in range(M):
+        idx.append(i)
+        dfs(idx, depth + 1)
+        idx.pop(-1)
+        
+dfs([], 0)
+print(sum)
+"""
+
+"""
 아래 코드는 combinations를 활용하여 재귀를 사용하지 않고 해결
 
 from itertools import combinations
