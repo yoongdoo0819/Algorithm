@@ -1,5 +1,33 @@
 # 퇴사 (BOJ 14501)
 
+
+# 아래는 직접 짠 코드
+N = int(input())
+
+datas = []
+for _ in range(N):
+    x, y = map(int, input().split())
+    datas.append((x, y))
+    
+ans = 0
+def dfs(start, sum):
+    global ans
+    
+    ans = max(ans, sum)
+    
+    for i in range(start, N):
+            
+        day, pay = datas[i]
+        if i + day <= N:
+            #print(">>", i+1, i+day+1, sum+pay)
+            dfs(i+day, sum+pay)
+            
+dfs(0, 0)
+print(ans)
+
+"""
+위 코드가 아래 코드보다 깔끔
+
 n = int(input())
 
 work_days = []
@@ -25,3 +53,5 @@ def get_highest_profit(start, accumulated_profit):
 get_highest_profit(0, 0)
 #print(max(result))
 print(max_val)
+
+"""
