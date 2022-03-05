@@ -42,6 +42,50 @@ dfs([], 0, 0)
 print(ans)
 
 """
+아래 코드는 위의 코드에서 list를 set으로 변경하여 품.
+위 코드보다 시간이 더 소요됨.
+
+
+from itertools import permutations
+
+N = int(input())
+teams = []
+ans = 1e9
+
+for _ in range(N):
+    teams.append(list(map(int, input().split())))
+    
+ans = 1e9
+def dfs(team, idx, depth):
+    global ans 
+    
+    if depth == N//2:
+        another_team = set()
+        for i in range(N):
+            another_team.add(i)
+        another_team -= team
+        
+        a, b = 0, 0
+        for perm in permutations(team, 2):
+             a += teams[perm[0]][perm[1]]
+        for perm in permutations(another_team, 2):
+             b += teams[perm[0]][perm[1]]
+           
+        ans = min(ans, abs(a-b))
+        
+    for i in range(idx, N):
+        if not i in team :
+            team.add(i)
+            dfs(team, i+1, depth+1)
+            team.remove(i)
+            
+dfs(set(), 0, 0)
+print(ans)
+
+"""
+
+
+"""
 아래 코드들은 combinations을 활용하여 해결한 두 가지 방안
 (코드는 약간 다름)
 
