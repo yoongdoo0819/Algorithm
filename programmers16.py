@@ -12,3 +12,28 @@ def solution(phone_book):
             prev_phone = curr_phone
     
     return True
+
+"""
+풀이방법 2 (코드는 거의 유사).
+
+def solution(phone_book):
+    answer = True
+    
+    phone_book.sort()
+    hashMap = {}
+    
+    for i in range(0, len(phone_book)-1):
+        phone = phone_book[i]
+        if not phone in hashMap:
+            hashMap[phone] = 1
+        else:
+            hashMap[phone] += 1
+            
+        next_phone = phone_book[i+1]
+        if next_phone[:len(phone)] in hashMap:
+           return False
+        
+        
+    return answer
+
+"""
