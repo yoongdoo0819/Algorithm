@@ -1,32 +1,33 @@
-# 네트워크
-
 from collections import deque
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
 def bfs(x, y, n, computers, visited):
-    
     q = deque()
-    q.append(y)
-    visited[y] = 1
+    q.append(x)
+    visited[x][y] = True
     
     while q:
         x = q.popleft()
         
-        for idx in range(1, n-y):
-            if computers[x][y+idx] == 1 and visited[y+idx] == -1:
-                visited[y+idx] = 1
-                q.append(y+idx)
-            
+        for i in range(n):
+            if computers[x][i] == 1 and not visited[x][i]:
+                visited[x][i] = True
+                q.append(i)
+                
+            if computers[i][x] == 1 and not visited[i][x]:
+                visited[i][x] = True
+                q.append(i)
+        
     return 1
 
 def solution(n, computers):
+    visited = [ [False] * n for _ in range(n) ]
     
-    visited = [-1] * n 
-    cnt = 0
+    answer = 0
     for i in range(n):
         for j in range(n):
-            if computers[i][j] == 1 and visited[j] == -1:
-                cnt += bfs(i, j, n, computers, visited)
-                
-    return cnt
+            if computers[i][j] == 1 and not visited[i][j]:
+                visited[i][j] = True
+                visited[j][i] = True
+                answer += bfs(i, j, n, computers, visited)
+    
+    return answer
