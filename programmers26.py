@@ -18,3 +18,27 @@ def solution(k, dungeons):
         answer.append(cnt)
         
     return max(answer)
+
+
+"""
+아래는 dfs 풀이
+
+mx = 0
+def dfs(k, dungeons, cnt, visited):
+    global mx
+    mx = max(mx, cnt)
+    
+    for i in range(0, len(dungeons)):
+        if not visited[i]:
+            visited[i] = True
+            x, y = dungeons[i]
+            if k >= x:
+                dfs(k-y, dungeons, cnt+1, visited)
+            visited[i] = False
+
+def solution(k, dungeons):
+    visited = [False] * (len(dungeons)+1)
+    dfs(k, dungeons, 0, visited)
+    return mx
+
+"""
